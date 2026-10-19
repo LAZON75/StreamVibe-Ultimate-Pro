@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -16,17 +16,18 @@ jobs:
         with:
           node-version: 18
 
-      - name: Generate PWA Android App
-        uses: pwabuilder/pwabuilder-android-action@v2
-        with:
-          url: 'https://lazon75.github.io/StreamVibe-Ultimate-Pro/'
-          name: 'StreamVibe Pro'
-          icon: 'https://lazon75.github.io/StreamVibe-Ultimate-Pro/icon.png'
-          output: 'apk'
+      - name: Install Bubblewrap CLI
+        run: npm install -g @pwabuilder/bubblewrap
+
+      - name: Build Android Package
+        run: |
+          bubblewrap init --manifest=https://lazon75.github.io/StreamVibe-Ultimate-Pro/manifest.json --directory=android --skip-window-validation
+          cd android
+          bubblewrap build
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: StreamVibe-Pro-APK
-          path: apk/*.apk
+          path: android/app/build/outputs/apk/release/*.apk
 

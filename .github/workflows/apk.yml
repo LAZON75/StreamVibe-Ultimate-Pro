@@ -11,10 +11,10 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
+      - name: Install Node.js
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y nodejs npm
 
       - name: Install Bubblewrap CLI
         run: npm install -g @pwabuilder/bubblewrap
@@ -22,7 +22,7 @@ jobs:
       - name: Build Android Package
         run: |
           bubblewrap init --manifest=https://lazon75.github.io/StreamVibe-Ultimate-Pro/manifest.json -d
-          
+
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:

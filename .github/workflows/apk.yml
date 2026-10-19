@@ -1,4 +1,4 @@
-name: Build APK from HTML
+name: Build Android App
 
 on:
   push:
@@ -8,23 +8,25 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
-      - name: Use Node.js
-        uses: actions/setup-node@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: 18
 
-      - name: Run Web to APK Action
-        uses: darkshredder/web-to-app-action@v1.0.3
+      - name: Generate PWA Android App
+        uses: pwabuilder/pwabuilder-android-action@v2
         with:
-          build-folder-path: '.'
-          app-name: 'StreamVibe Pro'
-          output-folder-path: 'apk/'
+          url: 'https://lazon75.github.io/StreamVibe-Ultimate-Pro/'
+          name: 'StreamVibe Pro'
+          icon: 'https://lazon75.github.io/StreamVibe-Ultimate-Pro/'
+          output: 'apk'
 
-      - name: Upload APK Artifact
-        uses: actions/upload-artifact@v2
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
         with:
           name: StreamVibe-Pro-APK
-          path: apk/
+          path: apk/*.apk
+

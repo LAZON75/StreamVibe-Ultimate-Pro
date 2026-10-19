@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>StreamVibe Pro</title>
+<link rel="manifest" href="manifest.json">
 <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.17/dist/hls.min.js"></script>
 <style>
 :root{--bg:#030308;--pri:#00d2ff;--glow:rgba(0,210,255,.4);--pink:#d81b60;--green:#00e676;--txt:#fff;--mut:#8c8c9e;--card:rgba(15,18,30,.88);--hover:rgba(25,30,48,.95);--bd:rgba(255,255,255,.12);--side:#0e1322;--chan:#0f1528}
@@ -106,49 +107,23 @@ h2.t:before{content:'';width:6px;height:22px;background:var(--pri);border-radius
 .tiles.sm{margin-top:18px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
 #live.nosid{grid-template-columns:340px 1fr}.nosid #side{display:none}
 @media(max-width:900px){#live.nosid{grid-template-columns:1fr}}
-
-/* StreamVibe Pro TV polish */
-html{scroll-behavior:smooth}
-button,[tabindex="0"],select{ -webkit-tap-highlight-color:transparent }
-:focus-visible{outline:3px solid #00e5ff!important;outline-offset:3px;box-shadow:0 0 0 5px rgba(0,210,255,.18),0 0 24px rgba(0,210,255,.28)}
-.nav{min-height:72px}
-.logo{letter-spacing:.3px}
-.hero2{min-height:clamp(390px,58vh,650px);padding-block:clamp(32px,5vh,70px)}
-.hin h1{max-width:900px}
-.tiles.big{grid-template-columns:repeat(4,minmax(0,1fr))}
-.tiles.sm{grid-template-columns:repeat(3,minmax(0,1fr))}
-.tile.big{min-height:180px}
-.tile{user-select:none}
-#live{height:100dvh;min-height:0}
-#live .col,#live .pl{min-height:0}
-#sideList,#chList{overscroll-behavior:contain}
-.it,.ch,.tab,.cb,.tile,.btn{transition:background .16s ease,border-color .16s ease,transform .16s ease,box-shadow .16s ease}
-.it:focus,.ch:focus,.tab:focus,.cb:focus,.tile:focus,.btn:focus{transform:scale(1.015);z-index:2}
-#v{background:#000}
-@media(min-width:1100px){
-  .nav{padding-inline:5vw}
-  .logo{font-size:30px}
-  .inp{font-size:16px;padding:12px 18px}
-  .hero2{padding-inline:7vw}
-  .hin h1{font-size:clamp(44px,4.5vw,72px)}
-  .hin p{font-size:20px;max-width:760px}
-  .btn{font-size:18px;padding:16px 30px}
-  h2.t{font-size:27px;margin-top:38px}
-  .tile.big{height:210px;font-size:25px}
-  #live{grid-template-columns:280px 340px minmax(0,1fr);grid-template-rows:64px minmax(0,1fr)}
-  .it,.ch{font-size:16px;padding-block:14px}
-  .tab{font-size:15px;padding:12px 4px}
-  .cb{font-size:14px;padding:9px 13px}
-}
-@media(max-width:760px){
-  .tiles.big{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .tiles.sm{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .hero2{min-height:440px}
-  .stats{gap:18px}
-}
-@media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
-}
+.hero2{background:#030308;animation:none}
+.hero2:before{content:"";position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?w=1600&auto=format&fit=crop') center/cover;animation:zm 24s ease-in-out infinite alternate}
+@keyframes zm{to{transform:scale(1.12)}}
+.nav{background:linear-gradient(180deg,rgba(0,0,0,.85),transparent);border:0}
+.logo{background:linear-gradient(90deg,#00d2ff,#ff2d75);-webkit-background-clip:text;background-clip:text;color:transparent;font-size:28px}
+.badge{-webkit-text-fill-color:#fff}
+.hero2{margin-top:0;min-height:82vh;padding-top:90px;border:0}
+.hin{max-width:640px}.hin h1{font-size:clamp(34px,6.5vw,66px)}
+.hero2 .btn{background:#fff;color:#000;box-shadow:none;font-size:18px;padding:14px 34px}
+.hero2 .btn.ghost{background:rgba(109,109,110,.75);color:#fff}
+.mini{margin-top:26px;color:#cfd8ee;font-size:14px}.mini b{color:#fff}
+.rowt{font-size:21px;font-weight:800;margin:6px 5vw 0}
+.row{display:flex;gap:26px;overflow-x:auto;padding:26px 5vw 44px;scrollbar-width:none}
+.row::-webkit-scrollbar{display:none}
+.ch,.it{border-radius:12px;margin:5px 10px}.ch{border:0;background:rgba(255,255,255,.04)}
+.ch:hover,.ch.on,.ch:focus{background:rgba(255,45,117,.28);transform:scale(1.02)}
+.tab.on{background:linear-gradient(90deg,#d81b60,#ff5a8a);color:#fff}
 </style>
 </head>
 <body onload="init()">
@@ -158,8 +133,7 @@ button,[tabindex="0"],select{ -webkit-tap-highlight-color:transparent }
  <input class="inp" id="gs" data-ph="search" oninput="gsearch(this.value)">
 </div>
 
-<div id="home">
-<div class="hero2"><div class="orb o1"></div><div class="orb o2"></div>
+<div class="hero2">
  <div class="hin">
   <span class="tag"><i class="dot"></i> <span data-i="tag"></span></span>
   <h1 data-i="hTitle"></h1>
@@ -171,13 +145,14 @@ button,[tabindex="0"],select{ -webkit-tap-highlight-color:transparent }
   <div class="stats"><div><b>40+</b><span data-i="stC"></span></div><div><b>10K+</b><span data-i="stCh"></span></div><div><b>HD</b><span data-i="stQ"></span></div><div><b>0$</b><span data-i="stFree"></span></div></div>
  </div>
 </div>
+
 <h2 class="t" data-i="menu"></h2>
-<div class="tiles big">
+<div class="tiles big" style="padding:0 5vw">
  <div class="tile big g0" tabindex="0" onclick="openSection('live')"><span>📡</span><i data-i="liveTV"></i></div>
  <div class="tile big g1" tabindex="0" onclick="openSection('movies')"><span>🎬</span><i data-i="movies"></i></div>
  <div class="tile big g3" tabindex="0" onclick="openSection('series')"><span>📺</span><i data-i="series"></i></div>
 </div>
-<div class="tiles sm">
+<div class="tiles sm" style="padding:10px 5vw">
  <div class="tile g0" tabindex="0" onclick="quick('sports')"><span>⚽</span><i data-i="sports"></i></div>
  <div class="tile g1" tabindex="0" onclick="quick('news')"><span>📰</span><i data-i="news"></i></div>
  <div class="tile g2" tabindex="0" onclick="quick('kids')"><span>🧸</span><i data-i="kids"></i></div>
@@ -186,9 +161,8 @@ button,[tabindex="0"],select{ -webkit-tap-highlight-color:transparent }
  <div class="tile g2" tabindex="0" onclick="$('settings').style.display='block'"><span>⚙️</span><i data-i="settings"></i></div>
 </div>
 <div class="foot" data-i="foot"></div>
-</div>
 
-<div id="settings">
+<div id="settings" style="display:none;position:fixed;inset:0;background:var(--bg);z-index:3000;padding:24px 5vw;overflow-y:auto">
  <div style="display:flex;justify-content:space-between;align-items:center">
   <b style="cursor:pointer;font-size:18px" onclick="$('settings').style.display='none'" data-i="back"></b>
   <h2 style="font-size:24px" data-i="settings"></h2><span style="width:50px"></span>
@@ -247,7 +221,7 @@ button,[tabindex="0"],select{ -webkit-tap-highlight-color:transparent }
    <button class="cb" onclick="fs()">⛶</button>
    <button class="cb" onclick="pip()">PiP</button>
    <button class="cb" onclick="aspect()">📐</button>
-   <button class="cb" onclick="mute()">🔊</button><button class="cb" onclick="zap(-1)">⏮</button><button class="cb" onclick="zap(1)">⏭</button><button class="cb" id="bDead" onclick="toggleDead()" style="opacity:.5">🚫</button>
+   <button class="cb" onclick="mute()">🔊</button><button class="cb" onclick="zap(-1)">⏮</button><button class="cb" onclick="zap(1)">⏭</button>
   </div>
   <div class="vid"><video id="v" controls autoplay playsinline></video><div id="msg" style="display:none"></div><div id="ib" class="ib"></div></div>
   <div class="np" id="np"></div>
@@ -256,7 +230,7 @@ button,[tabindex="0"],select{ -webkit-tap-highlight-color:transparent }
 
 <script>
 const $=id=>document.getElementById(id);
-const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;dois'[c]||c}));
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const LS={g:(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k));return v??d}catch{return d}},s:(k,v)=>localStorage.setItem(k,JSON.stringify(v))};
 const BASE='https://iptv-org.github.io/iptv/';
 const flag=c=>String.fromCodePoint(...[...(c==='uk'?'gb':c).toUpperCase()].map(x=>127397+x.charCodeAt(0)));
@@ -266,25 +240,16 @@ const CATS=[["sports","⚽","الرياضة","Sports"],["news","📰","الأخ�
 const LANGS=[["ara","🌍","كل القنوات العربية","Toutes arabes"],["fra","🇫🇷","الفرنسية","Français"],["eng","🇬🇧","الإنجليزية","English"],["spa","🇪🇸","الإسبانية","Español"],["tur","🇹🇷","التركية","Türkçe"]];
 
 const T={
-ar:{search:"ابحث عن قناة...",tag:"منصة IPTV الشاملة",hTitle:"تجربة بث متقدمة",hDesc:"تصفح القنوات حسب الدولة أو الفئة، مع مشغل ذكي وجودة تلقائية ومفضلة.",launch:"▶ ابدأ المشاهدة",menu:"القائمة الرئيسية",countries:"القنوات حسب الدولة",sports:"قنوات رياضية",movies:"أفلام",news:"أخبار",fav:"المفضلة",settings:"الإعدادات",back:"← رجوع",addPl:"إضافة قائمة M3U",par:"الرقابة الأبوية",lang:"اللغة",theme:"المظهر",ext:"مشغل خارجي",clear:"مسح السجل",load:"تحميل",save:"حفظ",pin:"رمز الحماية",ok:"تأكيد",home:"الرئيسية",tCountries:"الدول",tCats:"الفئات",tFav:"المفضلة",tRecent:"الأخيرة",ch:"قناة",empty:"لا توجد قنوات",loading:"جارٍ التحميل...",pickList:"اختر دولة أو فئة من القائمة",err:"تعذّر تشغيل القناة (قد تكون متوقفة أو محجوبة). جرّب قناة أخرى.",pinBad:"الرمز غير صحيح",pinNew:"اختر رمزاً من 4 أرقام",live:"بث مباشر",cleared:"تم المسح",fail:"فشل التحميل",langs:"اللغات"},
-fr:{search:"Rechercher une chaîne...",tag:"PLATEFORME IPTV UNIVERSELLE",hTitle:"Expérience de streaming avancée",hDesc:"Parcourez les chaînes par pays ou catégorie, avec lecteur intelligent, qualité auto et favoris.",launch:"▶ Commencer",menu:"Menu principal",countries:"Chaînes par pays",sports:"Chaînes sport",movies:"Films",news:"Actualités",fav:"Favoris",settings:"Paramètres",back:"← Retour",addPl:"Ajouter une liste M3U",par:"Contrôle parental",lang:"Langue",theme:"Thème",ext:"Lecteur externe",clear:"Effacer l'historique",load:"Charger",save:"Enregistrer",pin:"Code PIN",ok:"Valider",home:"Accueil",tCountries:"Pays",tCats:"Catégories",tFav:"Favoris",tRecent:"Récents",ch:"chaînes",empty:"Aucune chaîne",loading:"Chargement...",pickList:"Choisissez un pays ou une catégorie",err:"Lecture impossible (chaîne hors ligne ou bloquée). Essayez une autre.",pinBad:"Code incorrect",pinNew:"Choisissez un code à 4 chiffres",live:"En direct",cleared:"Effacé",fail:"Échec du chargement",langs:"Langues"},
-en:{search:"Search a channel...",tag:"UNIVERSAL IPTV PLATFORM",hTitle:"Advanced Streaming Experience",hDesc:"Browse channels by country or category with a smart player, auto quality and favorites.",launch:"▶ Start Watching",menu:"Main Menu",countries:"Channels by Country",sports:"Sports Channels",movies:"Movies",news:"News",fav:"Favorites",settings:"Settings",back:"← Back",addPl:"Add M3U Playlist",par:"Parental Control",lang:"Language",theme:"Theme",ext:"External Player",clear:"Clear History",load:"Load",save:"Save",pin:"PIN Code",ok:"Confirm",home:"Home",tCountries:"Countries",tCats:"Categories",tFav:"Favorites",tRecent:"Recent",ch:"channels",empty:"No channels",loading:"Loading...",pickList:"Pick a country or category",err:"Cannot play this channel (offline or blocked). Try another.",pinBad:"Wrong PIN",pinNew:"Choose a 4-digit PIN",live:"Live",cleared:"Cleared",fail:"Load failed",langs:"Languages"}
+ar:{search:"ابحث عن قناة...",tag:"منصة IPTV الشاملة",hTitle:"تجربة بث متقدمة",hDesc:"تصفح القنوات حسب الدولة أو الفئة، مع مشغل ذكي وجودة تلقائية ومفضلة.",launch:"▶ ابدأ المشاهدة",menu:"القائمة الرئيسية",countries:"القنوات حسب الدولة",sports:"قنوات رياضية",movies:"أفلام",news:"أخبار",fav:"المفضلة",settings:"الإعدادات",back:"← رجوع",addPl:"إضافة قائمة M3U",par:"الرقابة الأبوية",lang:"اللغة",theme:"المظهر",ext:"مشغل خارجي",clear:"مسح السجل",load:"تحميل",save:"حفظ",pin:"رمز الحماية",ok:"تأكيد",home:"الرئيسية",tCountries:"الدول",tCats:"الفئات",tFav:"المفضلة",tRecent:"الأخيرة",ch:"قناة",empty:"لا توجد قنوات",loading:"جارٍ التحميل...",pickList:"اختر دولة أو فئة من القائمة",err:"تعذّر تشغيل القناة (قد تكون متوقفة أو محجوبة). جرّب قناة أخرى.",pinBad:"الرمز غير صحيح",pinNew:"اختر رمزاً من 4 أرقام",live:"بث مباشر",cleared:"تم المسح",fail:"فشل التحميل",langs:"اللغات",cont:"تابع المشاهدة",stC:"دولة",stCh:"قناة",stQ:"جودة",stFree:"مجاناً",foot:"القنوات من قوائم iptv-org المجانية العامة · StreamVibe Pro",liveTV:"البث المباشر",series:"المسلسلات",documentary:"الوثائقيات",kids:"عالم الأطفال"},
+fr:{search:"Rechercher une chaîne...",tag:"PLATEFORME IPTV UNIVERSELLE",hTitle:"Expérience de streaming avancée",hDesc:"Parcourez les chaînes par pays ou catégorie, avec lecteur intelligent, qualité auto et favoris.",launch:"▶ Commencer",menu:"Menu principal",countries:"Chaînes par pays",sports:"Chaînes sport",movies:"Films",news:"Actualités",fav:"Favoris",settings:"Paramètres",back:"← Retour",addPl:"Ajouter une liste M3U",par:"Contrôle parental",lang:"Langue",theme:"Thème",ext:"Lecteur externe",clear:"Effacer l'historique",load:"Charger",save:"Enregistrer",pin:"Code PIN",ok:"Valider",home:"Accueil",tCountries:"Pays",tCats:"Catégories",tFav:"Favoris",tRecent:"Récents",ch:"chaînes",empty:"Aucune chaîne",loading:"Chargement...",pickList:"Choisissez un pays ou une catégorie",err:"Lecture impossible (chaîne hors ligne ou bloquée). Essayez une autre.",pinBad:"Code incorrect",pinNew:"Choisissez un code à 4 chiffres",live:"En direct",cleared:"Effacé",fail:"Échec du chargement",langs:"Langues",cont:"Reprendre",stC:"pays",stCh:"chaînes",stQ:"qualité",stFree:"gratuit",foot:"Chaînes issues des listes publiques gratuites iptv-org · StreamVibe Pro",liveTV:"TV en direct",series:"Séries",documentary:"Documentaires",kids:"Enfants"},
+en:{search:"Search a channel...",tag:"UNIVERSAL IPTV PLATFORM",hTitle:"Advanced Streaming Experience",hDesc:"Browse channels by country or category with a smart player, auto quality and favorites.",launch:"▶ Start Watching",menu:"Main Menu",countries:"Channels by Country",sports:"Sports Channels",movies:"Movies",news:"News",fav:"Favorites",settings:"Settings",back:"← Back",addPl:"Add M3U Playlist",par:"Parental Control",lang:"Language",theme:"Theme",ext:"External Player",clear:"Clear History",load:"Load",save:"Save",pin:"PIN Code",ok:"Confirm",home:"Home",tCountries:"Countries",tCats:"Categories",tFav:"Favorites",tRecent:"Recent",ch:"channels",empty:"No channels",loading:"Loading...",pickList:"Pick a country or category",err:"Cannot play this channel (offline or blocked). Try another.",pinBad:"Wrong PIN",pinNew:"Choose a 4-digit PIN",live:"Live",cleared:"Cleared",fail:"Load failed",langs:"Languages",cont:"Continue",stC:"countries",stCh:"channels",stQ:"quality",stFree:"free",foot:"Channels from free public iptv-org lists · StreamVibe Pro",liveTV:"Live TV",series:"Series",documentary:"Documentaries",kids:"Kids"}
 };
-Object.assign(T.ar,{cont:"تابع المشاهدة",popC:"الدول الأكثر مشاهدة",browse:"تصفح حسب الفئة",stC:"دولة",stCh:"قناة",stQ:"جودة",stFree:"مجاناً",foot:"القنوات من قوائم iptv-org المجانية العامة · StreamVibe Pro"});
-Object.assign(T.fr,{cont:"Reprendre",popC:"Pays populaires",browse:"Parcourir par catégorie",stC:"pays",stCh:"chaînes",stQ:"qualité",stFree:"gratuit",foot:"Chaînes issues des listes publiques gratuites iptv-org · StreamVibe Pro"});
-Object.assign(T.en,{cont:"Continue",popC:"Popular countries",browse:"Browse by category",stC:"countries",stCh:"channels",stQ:"quality",stFree:"free",foot:"Channels from free public iptv-org lists · StreamVibe Pro"});
-Object.assign(T.ar,{liveTV:"البث المباشر",series:"المسلسلات",documentary:"الوثائقيات",kids:"عالم الأطفال",sports:"الرياضة",news:"الأخبار"});
-Object.assign(T.fr,{liveTV:"TV en direct",series:"Séries",documentary:"Documentaires",kids:"Enfants",sports:"Sport",news:"Actualités"});
-Object.assign(T.en,{liveTV:"Live TV",series:"Series",documentary:"Documentaries",kids:"Kids",sports:"Sports",news:"News"});
-
-let dead=[],showDead=false,mode='live';localStorage.removeItem('dead');
 let lang=LS.g('lang','ar'),tab='c',cur=[],curLabel='',curKey='',hls=null,favs=LS.g('favs',[]),recent=LS.g('recent',[]),cache={},pending=null,activeUrl='';
 const t=k=>(T[lang]||T.ar)[k];
 
 function init(){
  if(LS.g('theme','dark')==='light')document.body.classList.add('light');
  setLang(lang);syncBtns();
- setTimeout(()=>{const f=document.querySelector('.hero2 .btn');if(f)f.focus()},300);
  $('side').addEventListener('click',e=>{
   const tb=e.target.closest('[data-t]');if(tb){tab=tb.dataset.t;renderSide();return}
   const el=e.target.closest('[data-u]');if(el){$('side').classList.remove('show');loadList(el.dataset.u,el.dataset.l)}
@@ -293,33 +258,6 @@ function init(){
   const s=e.target.closest('[data-fav]');
   if(s){toggleFav(+s.dataset.fav);return}
   const c=e.target.closest('[data-i]');if(c)play(view[+c.dataset.i]);
- });
- document.querySelectorAll('.tab,.cb,.btn,select').forEach(e=>e.tabIndex=0);
- const live=()=>$('live').style.display==='grid';
- const items=z=>[...document.querySelectorAll(z==='s'?'#side .tab,#sideList .it':z==='c'?'#chList .ch':'.bar .cb,.bar select')].filter(x=>x.offsetParent);
- const zoneOf=a=>a&&a.closest?(a.closest('#side')?'s':a.closest('#chs')?'c':a.closest('.pl')?'p':'c'):'c';
- const go=el=>{if(el){el.focus();el.scrollIntoView({block:'nearest'})}};
- document.addEventListener('keydown',e=>{
-  const k=e.key,a=document.activeElement;
-  if(a&&a.tagName==='INPUT'){if(k==='ArrowDown'||k==='ArrowUp')a.blur();else return}
-  if(k==='Enter'&&a&&a.matches('[tabindex="0"]')){a.click();return}
-  if((k==='Escape'||k==='Backspace') && document.querySelector('.ov[style*="display: flex"]')) {
-   document.querySelectorAll('.ov').forEach(x=>x.style.display='none');e.preventDefault();return;
-  }
-  if((k==='Escape'||k==='Backspace') && $('settings').style.display==='block') {$('settings').style.display='none';e.preventDefault();return;
-  }
-  if(!live()){
-   if(k==='ArrowDown'||k==='ArrowUp'){const f=[...document.querySelectorAll('.hero2 .btn,.chip,.tile,.card')],i=f.indexOf(a);go(f[Math.max(0,Math.min(f.length-1,i+(k==='ArrowDown'?1:-1)))]);e.preventDefault()}
-   return;
-  }
-  const z=zoneOf(a),L=items(z),i=Math.max(0,L.indexOf(a));
-  if(k==='ArrowDown'||k==='ArrowUp'){go(L[Math.max(0,Math.min(L.length-1,L.indexOf(a)<0?0:i+(k==='ArrowDown'?1:-1)))]);e.preventDefault()}
-  else if(k==='PageDown'||k==='PageUp'){go(L[Math.max(0,Math.min(L.length-1,i+(k==='PageDown'?10:-10)))]);e.preventDefault()}
-  else if(k==='ArrowRight'||k==='ArrowLeft'){
-   const order=document.documentElement.dir==='rtl'?['p','c','s']:['s','c','p'];
-   const j=order.indexOf(z)+(k==='ArrowRight'?1:-1);
-   if(order[j]){go(items(order[j])[0]);e.preventDefault()}
-  }else if(k==='Escape'||k==='Backspace'){closeLive()}
  });
 }
 
@@ -374,45 +312,35 @@ function loadList(url,key){
  if(url==='fav'){cur=favs;renderCh();return}
  if(url==='recent'){cur=recent;renderCh();return}
  if(cache[url]){cur=cache[url];renderCh();return}
- $('chList'].innerHTML=`<div class="ld">${t('loading')}</div>`;
+ $('chList').innerHTML=`<div class="ld">${t('loading')}</div>`;
  fetch(url).then(r=>r.text()).then(txt=>{
-  const lines=txt.split('\n');
-  let list=[],cName='',cLogo='';
-  for(let l of lines){
-   l=l.trim();
-   if(l.startsWith('#EXTINF:')){
-    const m=l.match(/tvg-logo="([^"]*)"/);
-    cLogo=m?m[1]:'';
-    const parts=l.split(',');
-    cName=parts[parts.length-1].trim();
-   }else if(l&&!l.startsWith('#')){
-    list.push({name:cName||'Channel',logo:cLogo,url:l});
-    cName='';cLogo='';
-   }
-  }
-  cache[url]=list;cur=list;renderCh();
+  parseM3U(txt,url);
  }).catch(()=>{loadCustomList(url)});
 }
 
 function loadCustomList(url){
  fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(url))
  .then(r=>r.text()).then(txt=>{
-  const lines=txt.split('\n');
-  let list=[],cName='',cLogo='';
-  for(let l of lines){
-   l=l.trim();
-   if(l.startsWith('#EXTINF:')){
-    const m=l.match(/tvg-logo="([^"]*)"/);
-    cLogo=m?m[1]:'';
-    const parts=l.split(',');
-    cName=parts[parts.length-1].trim();
-   }else if(l&&!l.startsWith('#')){
-    list.push({name:cName||'Channel',logo:cLogo,url:l});
-    cName='';cLogo='';
-   }
-  }
-  cache[url]=list;cur=list;renderCh();
+  parseM3U(txt,url);
  }).catch(()=>{alert(t('fail'));$('chList').innerHTML=`<div class="ld">${t('fail')}</div>`});
+}
+
+function parseM3U(txt,url){
+ const lines=txt.split('\n');
+ let list=[],cName='',cLogo='';
+ for(let l of lines){
+  l=l.trim();
+  if(l.startsWith('#EXTINF:')){
+   const m=l.match(/tvg-logo="([^"]*)"/);
+   cLogo=m?m[1]:'';
+   const parts=l.split(',');
+   cName=parts[parts.length-1].trim();
+  }else if(l&&!l.startsWith('#')){
+   list.push({name:cName||'Channel',logo:cLogo,url:l});
+   cName='';cLogo='';
+  }
+ }
+ cache[url]=list;cur=list;renderCh();
 }
 
 function addCustom(){
@@ -480,13 +408,7 @@ function zap(d){
  if(idx>=0){const nxt=view[idx+d];if(nxt)play(nxt)}
 }
 function scr(id,dir){const el=$(id);if(el)el.scrollBy({top:dir*180,behavior:'smooth'});}
-function openSection(sec,tb,after){
- if(sec==='live'){
-  openLive(tb,after);
- }else{
-  alert(t('loading'));
- }
-}
+function openSection(sec,tb,after){if(sec==='live'){openLive(tb,after)}}
 function renderHome(){
  const last=LS.g('last',null);
  if(last){$('contBtn').style.display='inline-flex';$('contName').textContent=last.name}

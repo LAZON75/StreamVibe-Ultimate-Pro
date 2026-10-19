@@ -14,20 +14,17 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version: '20'
 
       - name: Install Bubblewrap CLI
         run: npm install -g @pwabuilder/bubblewrap
 
       - name: Build Android Package
         run: |
-          bubblewrap init --manifest=https://lazon75.github.io/StreamVibe-Ultimate-Pro/manifest.json --directory=android --skip-window-validation
-          cd android
-          bubblewrap build
-
-      - name: Upload APK
+          bubblewrap init --manifest=https://lazon75.github.io/StreamVibe-Ultimate-Pro/manifest.json -d
+          
+      - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: StreamVibe-Pro-APK
-          path: android/app/build/outputs/apk/release/*.apk
-
+          name: app-apk
+          path: android/app/build/outputs/apk/release/app-release-unsigned.apk

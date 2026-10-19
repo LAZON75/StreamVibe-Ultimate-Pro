@@ -1,0 +1,30 @@
+name: Build APK from HTML
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Run Web to APK Action
+        uses: darkshredder/web-to-app-action@v1.0.3
+        with:
+          build-folder-path: '.'
+          app-name: 'StreamVibe Pro'
+          output-folder-path: 'apk/'
+
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: StreamVibe-Pro-APK
+          path: apk/

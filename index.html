@@ -357,6 +357,9 @@ function toggleFav(idx){
 function play(c){
  if(!c)return;activeUrl=c.url;
  let u=c.url;
+ if(location.protocol==='https:'&&u.startsWith('http://')){
+  u='https://api.allorigins.win/raw?url='+encodeURIComponent(u);
+ }
  recent=[c,...recent.filter(x=>x.url!==c.url)].slice(0,30);LS.s('recent',recent);
  if(LS.g('ext',false)){window.open(c.url,'_blank');return}
  $('np').innerHTML=`<b>${esc(c.name)}</b><span>● ${t('live')}</span>`;
@@ -397,6 +400,7 @@ function continueLast(){
  if(last){openLive('r',()=>{play(last)})};
 }
 function gsearch(q){
+ q=q.trim();
  if(!q)return;
  openLive('c',()=>{
   $('cs').value=q;

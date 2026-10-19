@@ -6,13 +6,13 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 18
 
@@ -21,11 +21,11 @@ jobs:
         with:
           url: 'https://lazon75.github.io/StreamVibe-Ultimate-Pro/'
           name: 'StreamVibe Pro'
-          icon: 'https://lazon75.github.io/StreamVibe-Ultimate-Pro/'
+          icon: 'https://lazon75.github.io/StreamVibe-Ultimate-Pro/icon.png'
           output: 'apk'
 
       - name: Upload APK
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: StreamVibe-Pro-APK
           path: apk/*.apk

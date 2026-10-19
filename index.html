@@ -75,7 +75,6 @@ h2.t:before{content:'';width:6px;height:22px;background:var(--pri);border-radius
 .cb:focus,.tab:focus,.btn:focus,.card:focus{outline:3px solid var(--pri)}
 .ld{padding:30px;text-align:center;color:var(--mut)}
 
-/* تصميم الـ 3D واللوحات العائمة */
 .scene{position:absolute;inset:0;perspective:1000px;overflow:hidden;pointer-events:none}
 .stage{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateY(calc(var(--px,0)*7deg)) rotateX(calc(var(--py,0)*-5deg));transition:transform .15s linear}
 .grid3d{position:absolute;inset-inline:-60%;bottom:-8%;height:58%;transform:rotateX(70deg);transform-origin:50% 100%;background-image:linear-gradient(rgba(0,210,255,.6) 1.5px,transparent 1.5px),linear-gradient(90deg,rgba(255,45,117,.55) 1.5px,transparent 1.5px);background-size:64px 64px;animation:gm 3.5s linear infinite;-webkit-mask-image:linear-gradient(0deg,#000 15%,transparent 85%);mask-image:linear-gradient(0deg,#000 15%,transparent 85%)}
@@ -291,7 +290,7 @@ function loadList(url,key){
  if(url==='recent'){cur=recent;renderCh();return}
  if(cache[url]){cur=cache[url];renderCh();return}
  $('chList').innerHTML=`<div class="ld">${t('loading')}</div>`;
- fetch(url).then(r=>r.text()).then(txt=>{
+ fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(url)).then(r=>r.text()).then(txt=>{
   parseM3U(txt,url);
  }).catch(()=>{loadCustomList(url)});
 }

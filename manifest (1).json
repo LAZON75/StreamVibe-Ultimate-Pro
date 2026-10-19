@@ -1,0 +1,13 @@
+{
+  "background_color": "#ffffff",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "lazon75.github",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "StreamVibe Pro",
+  "start_url": "/",
+  "theme_color": "#ffffff",
+  "id": "StreamVibe Pro",
+  "description": "StreamVibe Pro"
+}

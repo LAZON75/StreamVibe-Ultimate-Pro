@@ -358,9 +358,7 @@ function play(c){
  if(!c)return;activeUrl=c.url;
  let u=c.url;
  // إصلاح مشكلة الأمان المختلط والـ HTTP عبر البروكسي عند الحاجة
- if(location.protocol==='https:'&&u.startsWith('http://')){
-  u='https://api.allorigins.win/raw?url='+encodeURIComponent(u);
- }
+u = 'https://corsproxy.io/?' + encodeURIComponent(u);
  recent=[c,...recent.filter(x=>x.url!==c.url)].slice(0,30);LS.s('recent',recent);
  if(LS.g('ext',false)){window.open(c.url,'_blank');return}
  $('np').innerHTML=`<b>${esc(c.name)}</b><span>● ${t('live')}</span>`;

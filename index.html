@@ -357,6 +357,7 @@ function toggleFav(idx){
 function play(c){
  if(!c)return;activeUrl=c.url;
  let u=c.url;
+ // إصلاح مشكلة الأمان المختلط والـ HTTP عبر البروكسي عند الحاجة
  if(location.protocol==='https:'&&u.startsWith('http://')){
   u='https://api.allorigins.win/raw?url='+encodeURIComponent(u);
  }
